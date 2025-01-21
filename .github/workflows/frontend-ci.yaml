@@ -31,7 +31,7 @@ jobs:
 
       # Run lint.
       - name: Run lint
-        run: npm run lint
+        run: npx eslint
         working-directory: starter/frontend
 
       # Test Job Setup.
@@ -51,7 +51,7 @@ jobs:
 
       #Install dependencies
       - name: Install dependencies
-        run: npm ci
+        run: npm install
         working-directory: starter/frontend 
 
       # Run the tests interactively. You'll need to press `a` to run the tests
@@ -77,7 +77,7 @@ jobs:
 
       #Install dependencies
       - name: Install dependencies
-        run: npm ci
+        run: npm install
         working-directory: starter/frontend 
 
     # Build the Image
