@@ -151,10 +151,11 @@ jobs:
         run: pipenv install
         working-directory: starter/backend
 
-      # Run application.
-      - name: Run application
-        run: pipenv run serve
-        working-directory: starter/backend
+    # Build the Image
+      - name: Build Docker image
+        run: |
+          docker build --tag mp-backend:latest .
+        working-directory: .github/workflows/backend/starter/backend
 
       # Run Deploy to Server command
       - name: Deploy to Server
