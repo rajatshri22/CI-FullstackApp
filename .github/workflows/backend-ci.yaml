@@ -27,10 +27,10 @@ jobs:
         with:
           node-version: 14
      # Set up a python environment using the specified  version.
-      - name: Setup Python 3.10
+      - name: Setup Python 3.10.16
         uses: actions/setup-python@v1
         with:
-          python-version: 3.10
+          python-version: 3.10.16
       
       # Set up a pip environment.
       - name: Install pipenv
