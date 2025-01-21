@@ -26,17 +26,27 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
-
+     # Set up a python environment using the specified  version.
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
 
       # Install the dependencies.
       - name: Install dependencies
         run: pipenv install
         working-directory: starter/backend
 
+    # Run the test.
+      - name: Run tests
+        run: |
+          pipenv install --dev
+          pipenv run pytest
+
       # Run the test.
-      - name: Run test
-        run: pipenv run test
-        working-directory: starter/backend
+      #- name: Run test
+      #  run: pipenv run test
+      #  working-directory: starter/backend
 
       # Run lint.
       - name: Run lint
