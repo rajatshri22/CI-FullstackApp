@@ -155,7 +155,7 @@ jobs:
       - name: Build Docker image
         run: |
           docker build --tag mp-backend:latest .
-        working-directory: .github/workflows/backend/starter/backend
+        working-directory: starter/backend
 
       # Run Deploy to Server command
       - name: Deploy to Server
