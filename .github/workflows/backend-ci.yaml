@@ -38,7 +38,7 @@ jobs:
       - name: Run tests
 
     # Run the pip test.
-      - name: Run tests
+      - name: Run tests pip
         run: |
           pipenv install --dev
           pipenv run pytest
