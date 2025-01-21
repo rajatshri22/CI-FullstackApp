@@ -77,6 +77,28 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
+     # Set up a python environment using the specified  version.
+      - name: Setup Python 3.10.16
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.10.16
+      
+      # Set up a pip environment.
+      - name: Install pipenv
+        run: pip install pipenv
+        working-directory: starter/backend
+ 
+    # Run the pip test.
+      - name: Run tests pip
+        run: |
+          pipenv install --dev
+          pipenv run pytest
+        working-directory: starter/backend
+
+      # Install the dependencies.
+      - name: Install dependencies
+        run: pipenv install
+        working-directory: starter/backend
 
     
       # Run application.
@@ -102,6 +124,24 @@ jobs:
           node-version: 14
 
      
+     # Set up a python environment using the specified  version.
+      - name: Setup Python 3.10.16
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.10.16
+      
+      # Set up a pip environment.
+      - name: Install pipenv
+        run: pip install pipenv
+        working-directory: starter/backend
+ 
+    # Run the pip test.
+      - name: Run tests pip
+        run: |
+          pipenv install --dev
+          pipenv run pytest
+        working-directory: starter/backend
+
       # Install the dependencies.
       - name: Install dependencies
         run: pipenv install
