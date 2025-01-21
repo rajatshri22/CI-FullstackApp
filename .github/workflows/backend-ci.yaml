@@ -101,11 +101,15 @@ jobs:
         working-directory: starter/backend
 
     
-      # Run application.
-      - name: Run application
-        run: pipenv run serve
+      # Run the test.
+      - name: Run test
+        run: pipenv run test
         working-directory: starter/backend
 
+      # Run lint.
+      - name: Run lint
+        run: pipenv run lint
+        working-directory: starter/backend
 
 #Build Job
   build:
