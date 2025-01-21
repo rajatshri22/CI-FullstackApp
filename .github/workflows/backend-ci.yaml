@@ -31,22 +31,27 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: 3.12.8
+      
+      # Set up a pip environment.
+      - name: Install pipenv
+        run: pip install pipenv
+      - name: Run tests
+
+    # Run the pip test.
+      - name: Run tests
+        run: |
+          pipenv install --dev
+          pipenv run pytest
 
       # Install the dependencies.
       - name: Install dependencies
         run: pipenv install
         working-directory: starter/backend
 
-    # Run the test.
-      - name: Run tests
-        run: |
-          pipenv install --dev
-          pipenv run pytest
-
       # Run the test.
-      #- name: Run test
-      #  run: pipenv run test
-      #  working-directory: starter/backend
+      - name: Run test
+        run: pipenv run test
+        working-directory: starter/backend
 
       # Run lint.
       - name: Run lint
