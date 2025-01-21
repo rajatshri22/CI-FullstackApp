@@ -30,12 +30,17 @@ jobs:
 
       # Install the dependencies.
       - name: Install dependencies
-        run: npm install
+        run: pipenv install
         working-directory: starter/backend
 
-      # Run the linter.
+      # Run the test.
+      - name: Run test
+        run: pipenv run test
+        working-directory: starter/backend
+
+      # Run lint.
       - name: Run lint
-        run: npx eslint
+        run: pipenv run lint
         working-directory: starter/backend
 
       # Send a console message at completion.
@@ -58,15 +63,16 @@ jobs:
           node-version: 14
 
      
-      #Install dependencies
+      # Install the dependencies.
       - name: Install dependencies
-        run: npm install
+        run: pipenv install
         working-directory: starter/backend
 
-      # Run the tests.
-      - name: Run tests
-        run: npm run test
+      # Run application.
+      - name: Run application
+        run: pipenv run serve
         working-directory: starter/backend
+
 
 #Build Job
   build:
@@ -78,20 +84,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Setup NodeJS
+      # Set up a Node.js environment using the specified node version.
       - name: Setup NodeJS
         uses: actions/setup-node@v2
         with:
           node-version: 14
 
-      # Install dependencies
+     
+      # Install the dependencies.
       - name: Install dependencies
-        run: npm ci
+        run: pipenv install
         working-directory: starter/backend
 
-      # Run build applciation command
-      - name: Build application
-        run: npm run test
+      # Run application.
+      - name: Run application
+        run: pipenv run serve
         working-directory: starter/backend
 
       # Run Deploy to Server command
