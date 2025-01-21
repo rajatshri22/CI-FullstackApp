@@ -1,0 +1,86 @@
+name: Backend Continuous Deployment
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'  
+
+      - name: Install dependencies
+        run: pipenv install
+        working-directory: .github/workflows/backend/starter/backend
+
+      - name: Running Linter
+        run: pipenv run lint
+        working-directory: .github/workflows/backend  
+
+      - name: Run tests
+        run: pipenv run serve
+        working-directory: .github/workflows/backend/starter/backend
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{secrets.AWS_SESSION_TOKEN}}
+          aws-region: us-east-1  
+
+    # Build the Image
+      - name: Build Docker image
+        run: |
+          docker build --tag mp-backend:latest .
+        working-directory: .github/workflows/backend/starter/backend
+
+    # Run the Image
+      - name: Run Docker Image
+        run: |
+          docker run -p 5000:5000 --name mp-backend -d my-backend
+        working-directory: .github/workflows/backend/starter/backend
+
+    # Check the running application
+      - name: Check Running Application
+        run: curl http://localhost:5000/movies
+        working-directory: .github/workflows/backend/starter/backend
+
+    # Review Logs
+      - name: Review Logs
+        run: |
+          docker logs -f my-backend
+        working-directory: .github/workflows/backend/starter/backend
+
+    # Stop the application
+      - name: Stop docker
+        run: |
+          docker stop
+        working-directory: .github/workflows/backend/starter/backend
+
+      #- name: Build application
+      #  run: REACT_APP_MOVIE_API_URL=http://localhost:5000 npm start
+      #  working-directory: .github/workflows/frontend
+      
+      #- name: Serve application
+      #  run: |
+      #    npx http-server ./frontend/ -p 8080 &  # Serve the index.html file
+      #    sleep 5  # Wait for the server to start

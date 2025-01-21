@@ -1,0 +1,101 @@
+name: Backend Continuous Integration
+
+# The workflow runs on schedule (Sunday at 0:00) and on push to the main branch
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * 0'  
+
+#Use a matrix strategy to use Node.js versions 16.x and 18.x
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+      # Check out the code from the repository.
+        uses: actions/checkout@v2
+
+      # Set up a Node.js environment using the specified node version.
+      - name: Setup NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+
+      # Install the dependencies.
+      - name: Install dependencies
+        run: npm install
+        working-directory: starter/backend
+
+      # Run the linter.
+      - name: Run lint
+        run: npx eslint
+        working-directory: starter/backend
+
+      # Send a console message at completion.
+      - run: |
+          echo "Hello ${{github.actor}}. You pushed to ${{github.repository}} at $(date)."
+
+      # Test Job Setup.
+  test:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      # Check out the code from the repository.
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Set up a Node.js environment using the specified node version.
+      - name: Setup NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+     
+      #Install dependencies
+      - name: Install dependencies
+        run: npm install
+        working-directory: starter/backend
+
+      # Run the tests.
+      - name: Run tests
+        run: npm run test
+        working-directory: starter/backend
+
+#Build Job
+  build:
+  #job should only run after the first 2 succeed
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+    steps:
+      #  Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Setup NodeJS
+      - name: Setup NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm ci
+        working-directory: starter/backend
+
+      # Run build applciation command
+      - name: Build application
+        run: npm run test
+        working-directory: starter/backend
+
+      # Run Deploy to Server command
+      - name: Deploy to Server
+        run: |
+          echo "Deploying to server..."
+          # Add your deployment commands here
