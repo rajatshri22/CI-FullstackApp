@@ -78,12 +78,7 @@ jobs:
         with:
           node-version: 14
 
-     
-      # Install the dependencies.
-      - name: Install dependencies
-        run: pipenv install
-        working-directory: starter/backend
-
+    
       # Run application.
       - name: Run application
         run: pipenv run serve
