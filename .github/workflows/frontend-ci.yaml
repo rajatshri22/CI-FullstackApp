@@ -63,7 +63,7 @@ jobs:
   build:
   #job should only run after the first 2 succeed
     runs-on: ubuntu-latest
-     env:
+    env:
       REACT_APP_MOVIE_API_URL: http://localhost:5000
     needs: [lint, test]
     steps:
