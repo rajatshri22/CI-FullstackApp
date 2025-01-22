@@ -63,6 +63,8 @@ jobs:
   build:
   #job should only run after the first 2 succeed
     runs-on: ubuntu-latest
+     env:
+      REACT_APP_MOVIE_API_URL: http://localhost:5000
     needs: [lint, test]
     steps:
       #  Checkout code
@@ -83,7 +85,7 @@ jobs:
     # Build the Image
       - name: Build Docker image
         run: |
-          docker build --build-arg=REACT_APP_MOVIE_API_URL=http://localhost:5000 --tag=mp-frontend:latest .
+          docker build --build-arg REACT_APP_MOVIE_API_URL=${{ env.REACT_APP_MOVIE_API_URL }} --tag=mp-frontend:latest .
         working-directory: starter/frontend
 
       # Run Deploy to Server command
