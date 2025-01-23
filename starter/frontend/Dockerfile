@@ -11,6 +11,8 @@ COPY package.json package-lock.json ./
 # Install packages
 RUN npm install
 
+RUN npm install react-scripts
+
 # Copy code
 COPY . .
 
