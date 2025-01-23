@@ -19,7 +19,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns",
-    "clean": "rm -rf ./node_modules && rm -rf ./build"
+    "clean": "rm -rf ./node_modules && rm -rf ./build",
+    "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\""
   },
   "eslintConfig": {
     "extends": [
