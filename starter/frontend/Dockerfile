@@ -10,6 +10,7 @@ COPY package.json package-lock.json ./
 
 # Install packages
 RUN npm install
+RUN npm install prettier --save-dev
 
 RUN npm install react-scripts
 
