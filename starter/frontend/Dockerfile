@@ -15,10 +15,9 @@ RUN npm install
 COPY . .
 
 # Build the app RUN npm run build
-#RUN npm run build
-ENV NODE_ENV=production
-RUN apt-get update && apt-get install -y python3 build-essential
+
 RUN npm run build
+
 
 # Expose the port used by the React app
 EXPOSE 3000
