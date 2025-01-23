@@ -5,8 +5,8 @@ ENV REACT_APP_MOVIE_API_URL=${REACT_APP_MOVIE_API_URL}
 
 WORKDIR /app
 
-# Copy dependdency files
-COPY package*.json ./
+# Copy dependdency files COPY package*.json ./
+COPY package.json package-lock.json ./
 
 # Install packages
 RUN npm install
@@ -15,6 +15,9 @@ RUN npm install
 COPY . .
 
 # Build the app RUN npm run build
+#RUN npm run build
+ENV NODE_ENV=production
+RUN apt-get update && apt-get install -y python3 build-essential
 RUN npm run build
 
 # Expose the port used by the React app
