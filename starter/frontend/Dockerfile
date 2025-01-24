@@ -11,8 +11,6 @@ COPY package.json package-lock.json ./
 
 # Install packages
 RUN npm install
-RUN npm install --save-dev prettier eslint eslint-plugin-prettier eslint-config-prettier
-
 
 RUN npm install react-scripts
 
