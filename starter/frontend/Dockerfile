@@ -18,7 +18,7 @@ COPY . .
 
 # Build the app RUN npm run build
 
-RUN npm run build
+RUN npm run test
 
 
 # Expose the port used by the React app
