@@ -22,6 +22,16 @@
     "clean": "rm -rf ./node_modules && rm -rf ./build",
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\""
   },
+  "eslintrc": {
+    "extends": [
+      "eslint:recommended",
+      "plugin:prettier/recommended"
+    ],
+    "plugins": ["prettier"],
+    "rules": {
+      "prettier/prettier": "error"
+    }
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
