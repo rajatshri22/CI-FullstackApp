@@ -14,8 +14,15 @@ RUN npm ci
 # Copy code
 COPY . .
 
+<<<<<<< HEAD
 # Build the app
 RUN npm run build
+=======
+# Build the app RUN npm run build
+
+RUN npm run build
+
+>>>>>>> 3780c33c6a0210351af05fe3d0c251d0759761ba
 
 # Expose the port used by the React app
 EXPOSE 3000
